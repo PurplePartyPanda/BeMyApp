@@ -27,7 +27,13 @@ function onButtonTap(time, self)
   end
 end
 function buttonSize()
-  size = {(display.contentHeight - uppergap) / 3 * 1.3, (display.contentHeight - uppergap) / 3}
+  size = nil
+  if display.contentHeight > 800 or display.contentHeight < 640 then
+    size = {(display.contentHeight - uppergap) / 3 * 1.3, (display.contentHeight - uppergap) / 3}
+  else
+    size = {250,192}
+    print("forcesize")
+  end
   return size
 end
 function buttonPos(x,y)
