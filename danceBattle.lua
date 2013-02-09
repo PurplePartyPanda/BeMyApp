@@ -68,6 +68,9 @@ function comboAppend(time, input)
     local isCombo = comboTracker()
     if isCombo then scoreEarned = scoreEarned + 10 end
     score = score + scoreEarned
+
+    setStatusValue(score)
+
     print("Earned: " .. scoreEarned .. " TOTAL:" .. score)
     scoreEarned = 0
       --if success, recreate combo record
