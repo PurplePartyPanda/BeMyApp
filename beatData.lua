@@ -49,6 +49,7 @@ end
 BEATTYPE_LOW="b"
 BEATTYPE_MID="m"
 BEATTYPE_HIGH="t"
+BEATTYPE_NONE="none"
 
 BeatAnimator = {}
 BeatAnimator.__index = BeatAnimator
@@ -111,6 +112,34 @@ function BeatAnimator:update()
 		end
 		self.beatIdx=self.beatIdx+1
 	end
+end
+
+
+function  BeatAnimator:currentBeat()
+	local MAX_TIMEDIFF=200
+
+	local curTime=system.getTimer()-self.startTime
+	local beatSrchIdx=self.beatIdx
+	while self:isCloserTo(curTime,beatSrchIdx-1,beatSrchIdx) do
+		beatSrchIdx=beatSrchIdx-1
+	end
+	while self:isCloserTo(curTime,beatSrchIdx+1,beatSrchIdx) do
+		beatSrchIdx=beatSrchIdx+1
+	end
+
+	local curBeat=self.beatData[beatSrchIdx]
+	local timediff=abs(curTime-curBeat.time)
+	if timediff>MAX_TIMEDIFF then return BEATTYPE_NONE
+	else return curBeat.type end
+
+end
+
+function BeatAnimator:isCloserTo(t,idx1,idx2)
+	if idx1<1 or idx1>#self.beatData then return false end
+	if idx2<1 or idx2>#self.beatData then return true end
+	t1=self.beatData[idx1].time
+	t2=self.beatData[idx2].time
+	return abs(t-t1)<abs(t-t2)
 end
 
 --acc = BeatAnimator.create(beatData)
