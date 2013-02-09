@@ -33,11 +33,11 @@ function Button:init()
 end
 
 function Button:touch(event)
-    if event.xStart - event.x >= -32 and event.xStart - event.x <= 32 then
-        if event.yStart - event.y >= -32 and event.yStart - event.y <= 32 then
-            if event.phase == "release" then
+    --if event.xStart - event.x >= -32 and event.xStart - event.x <= 32 then
+    --    if event.yStart - event.y >= -32 and event.yStart - event.y <= 32 then
+            if event.phase == "press" then
 			    self.callBack(event.time)
             end
-        end
-    end
+    --    end
+    --end
 end
