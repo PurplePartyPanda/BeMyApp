@@ -1,5 +1,6 @@
 require("buttons")
 require("buttonSetup")
+require("beatData")
 comboRecord = {}
 score = 0
 health = 50
@@ -58,6 +59,8 @@ end
 function startDance()
   -- the major logic of the game
   -- play music
+  local audioChannel=audio.play(music)
+  beatAnimator:start()
 end
 
 function buildDanceGui(level)
@@ -66,6 +69,19 @@ function buildDanceGui(level)
   -- build gui
   -- build characters
   -- readMusicData()
-  buildButtons()
+  local path="C:/Users/sam/Documents/GitHub/BeMyApp/"
+  beatData=readBeatData(path.."music/dance2.csv")
+  beatAnimator=BeatAnimator.create(beatData)
+  music=audio.loadSound(path.."music/dance2.mpe")
+  buildButtons(beatAnimator)
+
+  startDance()
   return true
 end 
+
+
+function danceDone()
+  --destroy / clean up variables
+  music:dispose()
+  beatData=nil
+end
