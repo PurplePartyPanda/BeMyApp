@@ -13,8 +13,13 @@ function Button.create(name, x, y, image, hoverimage, callback)
     --self.__index = self
     btn.id = name
     local widget = require "widget"
-    local buttonwidth = (display.contentWidth - display.contentHeight) / 2
-    local buttonheight = display.contentHeight / 3
+    local uppergap = display.contentHeight * 60 / 640
+	if display.contentHeight > 640 then
+	    uppergap = 60
+	end
+	print("uppergap: " .. uppergap)
+    local buttonheight = (display.contentHeight - uppergap) / 3
+	local buttonwidth = buttonheight * 1.3
     btn.button = widget.newButton{
         default = image,
         over = hoverimage,
@@ -22,14 +27,14 @@ function Button.create(name, x, y, image, hoverimage, callback)
         height = buttonheight
     }
     btn.button.x = (display.contentWidth - buttonwidth) * x + buttonwidth / 2
-    btn.button.y = buttonheight * y + buttonheight / 2
+    btn.button.y = buttonheight * y + buttonheight / 2 + uppergap
     btn.callBack = callback
     btn:init()
     return btn
 end
 function Button.destroy(btn)
     -- remove widget first (widgets must be removed manually to avoid memleak)
-    display.remove(btn.button )
+    display.remove(btn.button)
     btn.button = nil
     btn = nil
     return true
