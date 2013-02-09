@@ -64,8 +64,7 @@ function BeatAnimator.create(beatData)
 end
 
 function BeatAnimator:registerBtn(btn,type)
-	btn.button.alpha=0.5
-   table.insert(self.buttons,{btn=btn,type=type})
+   table.insert(self.buttons,{btn=btn,type=type,pos=btn.button.x})
 end
 
 function BeatAnimator:start()
@@ -80,11 +79,12 @@ function BeatAnimator:update()
 	if self.beatIdx>#self.beatData then return end
 
 	local curTime=system.getTimer()-self.startTime
-	local fadeInTime=50
-	local fadeOutTime=250
+	local fadeInTime=200
+	local fadeOutTime=400
 	local animOutTime, animInTime
 
 	local curBeat,nextBeatTimeDiff
+	local curBtn
 
 
 	while self.beatIdx<=#self.beatData do
@@ -99,15 +99,16 @@ function BeatAnimator:update()
 
 		for i,btn in ipairs(self.buttons) do
 			if btn.type==curBeat.type then
+				curBtn=btn.btn.button
 				if curTime>curBeat.time then
-					btn.btn.button.alpha=1.0
+					curBtn.x=btn.pos+20
 					animOutTime=curBeat.time+fadeOutTime-curTime
-					transition.to(btn.btn.button,{time=animOutTime,alpha=0.5})
+					transition.to(btn.btn.button,{time=animOutTime,x=btn.pos})
 				else
 					animInTime=curBeat.time-curTime
 					animOutTime=fadeOutTime
-					transition.to(btn.btn.button,{time=animInTime,alpha=1.0})
-					transition.to(btn.btn.button,{delay=animInTime,time=animOutTime,alpha=0.5})
+					transition.to(btn.btn.button,{time=animInTime,x=btn.pos+20,transition=easing.inQuad})
+					transition.to(btn.btn.button,{delay=animInTime,time=animOutTime,x=btn.pos,transition=easing.outQuad})
 				end
 			end
 		end
