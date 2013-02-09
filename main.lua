@@ -24,8 +24,8 @@ function onButtonMenuTap(time, self)
 end
 
 function init()
-  -- add listener of the 6 buttons
-  -- add listener of tilting phone
+  display.setStatusBar( display.HiddenStatusBar )
+  local bg = display.newImage ("images/outside.jpg");
   buttonPlay = Button.create("play", 0, 0, "images/button_a.png", "images/button_a_over.png", onButtonMenuTap)
   buttonPlay.button.x = display.contentWidth / 2
   buttonPlay.button.y = display.contentHeight / 2
