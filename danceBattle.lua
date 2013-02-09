@@ -1,19 +1,42 @@
 require("buttons")
 require("buttonSetup")
 comboRecord = {}
-bpm =  100
+
 function comboAppend(input)
-  table.insert(comboRecord, 1, input)
-  print(comboRecord[1])
+  --comparet to the music data for beat
+  if true then -- if on beat
+    table.insert(comboRecord, 1, input)
+    table.remove(comboRecord, 4)
+    -- run tracker to check success of finishing a combo
+    local isCombo = comboTracker()
+      --if success, recreate combo record
+  else -- recreate combo record
+    comboRecord = nil
+    comboRecord = {}
+  end
+  print(comboRecord[1], comboRecord[2], comboRecord[3], comboRecord[4])
 end
 
-function comboTracker(input)
+
+
+function comboTracker()
   -- keep track of button Sequence here
-  -- print(comboRecord)
-  -- set timer
-  -- comboRecord.remove()
-  -- table.insert(comboReord, 1, input)
-  -- print(comboRecord)
+  local result = nil
+  if comboRecord[3] == "c" and  
+    comboRecord[2] == "b" and  
+    comboRecord[1] == "a" then
+    print("comobo tracker: cba")
+    result =  true
+  elseif comboRecord[3] == "f" and  
+    comboRecord[2] == "e" and  
+    comboRecord[1] == "d" then
+    print("comobo tracker: fed")
+    result = true
+  else
+    result = false
+  end
+  -- do combo
+  return result
 end
 
 function startDance()

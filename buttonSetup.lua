@@ -5,7 +5,6 @@ textObject:setTextColor( 255,255,255 )
 
 function onButtonTap(time, self)
   -- check self
-  print(self.id)
   if self.id == "a" then
     comboAppend("a")
   elseif self.id == "b" then

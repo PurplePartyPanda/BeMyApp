@@ -11,8 +11,6 @@ function Button.create(name, x, y, image, hoverimage, callback)
     local btn = {}            -- our new object
     setmetatable(btn,Button)  -- make Button handle lookup
     --self.__index = self
-    print("button create")
-    print(name)
     btn.id = name
     local widget = require "widget"
     local buttonwidth = (display.contentWidth - display.contentHeight) / 2
@@ -34,7 +32,7 @@ function Button.destroy(btn)
     display.remove(btn.button )
     btn.button = nil
     btn = nil
-     return true
+    return true
 end
 function Button:init()
     self.button:addEventListener("touch", self)
