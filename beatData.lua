@@ -128,7 +128,7 @@ function  BeatAnimator:currentBeat()
 	end
 
 	local curBeat=self.beatData[beatSrchIdx]
-	local timediff=abs(curTime-curBeat.time)
+	local timediff=math.abs(curTime-curBeat.time)
 	if timediff>MAX_TIMEDIFF then return BEATTYPE_NONE
 	else return curBeat.type end
 
@@ -139,7 +139,7 @@ function BeatAnimator:isCloserTo(t,idx1,idx2)
 	if idx2<1 or idx2>#self.beatData then return true end
 	t1=self.beatData[idx1].time
 	t2=self.beatData[idx2].time
-	return abs(t-t1)<abs(t-t2)
+	return math.abs(t-t1)<math.abs(t-t2)
 end
 
 --acc = BeatAnimator.create(beatData)
