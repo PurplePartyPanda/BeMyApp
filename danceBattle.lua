@@ -48,7 +48,7 @@ end
 function comboAppend(time, input)
   --comparet to the music data for beat
   if onBeatTracker() then -- if on beat
-    local scoreEarned = 10
+    local scoreEarned = 3
     local inPitch = nil
     if input.id == "a" or input.id == "d" then
       inPitch = BEATTYPE_HIGH
@@ -59,8 +59,8 @@ function comboAppend(time, input)
     else 
       error("input button error")
     end
-    if onPitchTracker(inPitch) then scoreEarned = scoreEarned + 10 end
-    table.insert(comboRecord, 1, input)
+    if onPitchTracker(inPitch) then scoreEarned = scoreEarned + 5 end
+    table.insert(comboRecord, 1, input.id)
     table.remove(comboRecord, 4)
     -- run tracker to check success of finishing a combo
     local isCombo = comboTracker()
