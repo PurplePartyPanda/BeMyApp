@@ -1,6 +1,7 @@
 require("buttons")
 require("buttonSetup")
 require("beatData")
+require("statusbar")
 comboRecord = {}
 score = 0
 scoreEarned = 0
@@ -100,6 +101,7 @@ function buildDanceGui(level)
   beatAnimator=BeatAnimator.create(beatData)
   music=audio.loadSound("music/dance2.mp3")
   buildButtons(beatAnimator)
+  makeStatusBar()
   startDance()
   return true
 end 
