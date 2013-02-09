@@ -69,15 +69,25 @@ function setBG()
   bg.x = display.contentWidth / 2
   bg.y = display.contentHeight / 2
 end
-
+function buildMain()
+  bg = display.newImage ("images/outside.jpg");
+  setBG()
+  local buttonPlay = Button.create("play", {400,200}, {display.contentWidth / 3,display.contentHeight / 3}, "images/button_a.png", "images/button_a_over.png", onButtonMenuTap)
+  local buttonLevels = Button.create("levels", {200,200}, {display.contentWidth / 1.5,display.contentHeight / 3}, "images/button_b.png", "images/button_b_over.png", onButtonMenuTap)
+  local buttonOptions = Button.create("options", {200,200}, {display.contentWidth / 3,display.contentHeight / 1.5}, "images/button_c.png", "images/button_c_over.png", onButtonMenuTap)
+  local buttonCredits = Button.create("creits", {200,200}, {display.contentWidth / 2,display.contentHeight / 1.5}, "images/button_d.png", "images/button_d_over.png", onButtonMenuTap)
+  local buttonExit = Button.create("exit", {200,200}, {display.contentWidth / 1.5,display.contentHeight / 1.5}, "images/button_e.png", "images/button_e_over.png", onButtonMenuTap)
+end
+function buildOption()
+end
+function buildCredit()
+end
 function init()
   display.setStatusBar(display.HiddenStatusBar)
   initLog()
   print(display.contentWidth .. "x" .. display.contentHeight)
-  bg = display.newImage ("images/outside.jpg");
-  
-  buttonPlay = Button.create("play", {200,200}, {display.contentWidth / 2,display.contentHeight / 2}, "images/button_a.png", "images/button_a_over.png", onButtonMenuTap)
-  
+  buildMain()
+  --buttonBack = Button.create("back",)
   local animation = getTestAnimation()
   animation.x = display.contentWidth / 2
   animation.y = display.contentHeight / 2
