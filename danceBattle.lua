@@ -1,14 +1,50 @@
 require("buttons")
 require("buttonSetup")
 comboRecord = {}
+score = 0
+health = 50
 
-function comboAppend(input)
+function onBeatTracker(time)
+  --if input == current beat
+  return true
+end
+function onPitchTracker(input)
+  --if input == current pitch
+  return true
+end
+function comboTracker()
+  -- keep track of button Sequence here
+  local result = nil
+  if comboRecord[3] == "c" and  
+    comboRecord[2] == "b" and  
+    comboRecord[1] == "a" then
+    print("comobo tracker: cba")
+    -- do combo
+    result =  true
+  elseif comboRecord[3] == "f" and  
+    comboRecord[2] == "e" and  
+    comboRecord[1] == "d" then
+    print("comobo tracker: fed")
+    -- do combo
+    result = true
+  else
+    result = false
+  end
+  return result
+end
+
+function comboAppend(time, input)
   --comparet to the music data for beat
-  if true then -- if on beat
+  if onBeatTracker(time) then -- if on beat
+    local scoreEarned = 10
+    if onPitchTracker(input) then scoreEarned = scoreEarned + 10 end
     table.insert(comboRecord, 1, input)
     table.remove(comboRecord, 4)
     -- run tracker to check success of finishing a combo
     local isCombo = comboTracker()
+    if isCombo then scoreEarned = scoreEarned + 10 end
+    score = score + scoreEarned
+    print(scoreEarned .. " " .. score)
       --if success, recreate combo record
   else -- recreate combo record
     comboRecord = nil
@@ -18,26 +54,6 @@ function comboAppend(input)
 end
 
 
-
-function comboTracker()
-  -- keep track of button Sequence here
-  local result = nil
-  if comboRecord[3] == "c" and  
-    comboRecord[2] == "b" and  
-    comboRecord[1] == "a" then
-    print("comobo tracker: cba")
-    result =  true
-  elseif comboRecord[3] == "f" and  
-    comboRecord[2] == "e" and  
-    comboRecord[1] == "d" then
-    print("comobo tracker: fed")
-    result = true
-  else
-    result = false
-  end
-  -- do combo
-  return result
-end
 
 function startDance()
   -- the major logic of the game

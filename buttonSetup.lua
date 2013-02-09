@@ -6,19 +6,19 @@ textObject:setTextColor( 255,255,255 )
 function onButtonTap(time, self)
   -- check self
   if self.id == "a" then
-    comboAppend("a")
+    comboAppend(time, "a")
   elseif self.id == "b" then
-    comboAppend("b")
+    comboAppend(time, "b")
   elseif self.id == "c" then
-    comboAppend("c")
+    comboAppend(time, "c")
   elseif self.id == "d" then
-    comboAppend("d")
+    comboAppend(time, "d")
   elseif self.id == "e" then
-    comboAppend("e")
+    comboAppend(time, "e")
   elseif self.id == "f" then
-    comboAppend("f")
+    comboAppend(time, "f")
   else
-    error("error in button") 
+    print("it's another button")
   end
 end
 
