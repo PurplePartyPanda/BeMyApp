@@ -24,8 +24,21 @@ function onButtonMenuTap(time, self)
 end
 
 function init()
-  display.setStatusBar( display.HiddenStatusBar )
+  display.setStatusBar(display.HiddenStatusBar)
+  print(display.contentWidth .. "x" .. display.contentHeight)
   local bg = display.newImage ("images/outside.jpg");
+  local origwidth = bg.width
+  local origheight = bg.height
+  if display.contentHeight > 800 then
+    bg.height = display.contentHeight
+	bg.width = bg.height / origheight * origwidth
+  elseif display.contentHeight < 640 then
+    bg.height = display.contentHeight / 640 * 800
+	bg.width = bg.height / origheight * origwidth
+  end
+  print(bg.width .. "x" .. bg.height)
+  bg.x = display.contentWidth / 2
+  bg.y = display.contentHeight / 2
   buttonPlay = Button.create("play", 0, 0, "images/button_a.png", "images/button_a_over.png", onButtonMenuTap)
   buttonPlay.button.x = display.contentWidth / 2
   buttonPlay.button.y = display.contentHeight / 2
