@@ -1,4 +1,5 @@
 -- PURPLE PARTY PANDA
+require("onScreenLog")
 require("danceBattle")
 require("buttons")
 
@@ -54,6 +55,7 @@ end
 
 function init()
   display.setStatusBar(display.HiddenStatusBar)
+  initLog()
   print(display.contentWidth .. "x" .. display.contentHeight)
   local bg = display.newImage ("images/outside.jpg");
   local origwidth = bg.width

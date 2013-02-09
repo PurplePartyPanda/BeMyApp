@@ -76,6 +76,7 @@ function BeatAnimator:start()
 end
 
 function BeatAnimator:update()
+	log("update "..self.beatIdx.." out of "..#self.beatData)
 	if self.beatIdx>#self.beatData then return end
 
 	local curTime=system.getTimer()-self.startTime

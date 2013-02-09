@@ -83,6 +83,7 @@ end
 function startDance()
   -- the major logic of the game
   -- play music
+  logText:toFront()
   local audioChannel=audio.play(music)
   beatAnimator:start()
 end
