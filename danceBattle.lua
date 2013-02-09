@@ -1,9 +1,10 @@
 require("buttons")
 require("buttonSetup")
 comboRecord = {}
-
+bpm =  100
 function comboAppend(input)
   table.insert(comboRecord, 1, input)
+  print(comboRecord[1])
 end
 
 function comboTracker(input)
@@ -25,6 +26,7 @@ function buildDanceGui(level)
   -- different level different environment
   -- build gui
   -- build characters
+  -- readMusicData()
   buildButtons()
   return true
 end 
