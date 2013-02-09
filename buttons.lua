@@ -15,7 +15,6 @@ function Button.create(name, size, pos, image, hoverimage, callback)
     --self.__index = self
     btn.id = name
     local widget = require "widget"
-	print("uppergap: " .. uppergap)
 
     btn.button = widget.newButton{
         default = image,

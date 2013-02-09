@@ -4,13 +4,24 @@ require("beatData")
 comboRecord = {}
 score = 0
 health = 50
-
-function onBeatTracker(time)
+function onBeatTracker()
+  local result = nil
+  print(beatAnimator:currentBeat())
+  if beatAnimator:currentBeat() ~= BEATTYPE_NONE then
+    result = true
+  else
+    result = false
+  end
   --if input == current beat
   return true
 end
 function onPitchTracker(input)
-  --if input == current pitch
+  local result = nil
+  if input == beatAnimator:currentBeat() then
+    result = true
+  else
+    result = false
+  end
   return true
 end
 function comboTracker()
@@ -36,9 +47,19 @@ end
 
 function comboAppend(time, input)
   --comparet to the music data for beat
-  if onBeatTracker(time) then -- if on beat
+  if onBeatTracker() then -- if on beat
     local scoreEarned = 10
-    if onPitchTracker(input) then scoreEarned = scoreEarned + 10 end
+    local inPitch = nil
+    if input.id == "a" or input.id == "d" then
+      inPitch = BEATTYPE_HIGH
+    elseif input.id == "b" or input.id == "e" then
+      inPitch = BEATTYPE_MID
+    elseif input.id == "c" or input.id == "f" then
+      inPitch = BEATTYPE_LOW
+    else 
+      error("input button error")
+    end
+    if onPitchTracker(inPitch) then scoreEarned = scoreEarned + 10 end
     table.insert(comboRecord, 1, input)
     table.remove(comboRecord, 4)
     -- run tracker to check success of finishing a combo
