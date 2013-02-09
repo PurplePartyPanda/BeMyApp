@@ -3,6 +3,7 @@ require("buttonSetup")
 require("beatData")
 comboRecord = {}
 score = 0
+scoreEarned = 0
 health = 50
 function onBeatTracker()
   local result = nil
@@ -13,7 +14,7 @@ function onBeatTracker()
     result = false
   end
   --if input == current beat
-  return true
+  return result
 end
 function onPitchTracker(input)
   local result = nil
@@ -22,7 +23,7 @@ function onPitchTracker(input)
   else
     result = false
   end
-  return true
+  return result
 end
 function comboTracker()
   -- keep track of button Sequence here
@@ -48,7 +49,7 @@ end
 function comboAppend(time, input)
   --comparet to the music data for beat
   if onBeatTracker() then -- if on beat
-    local scoreEarned = 3
+    scoreEarned = 3
     local inPitch = nil
     if input.id == "a" or input.id == "d" then
       inPitch = BEATTYPE_HIGH
@@ -66,12 +67,14 @@ function comboAppend(time, input)
     local isCombo = comboTracker()
     if isCombo then scoreEarned = scoreEarned + 10 end
     score = score + scoreEarned
-    print(scoreEarned .. " " .. score)
+    print("Earned: " .. scoreEarned .. " TOTAL:" .. score)
+    scoreEarned = 0
       --if success, recreate combo record
   else -- recreate combo record
     comboRecord = nil
     comboRecord = {}
   end
+
   print(comboRecord[1], comboRecord[2], comboRecord[3], comboRecord[4])
 end
 
@@ -90,12 +93,12 @@ function buildDanceGui(level)
   -- build gui
   -- build characters
   -- readMusicData()
+  
   beatPath=system.pathForFile( "music/dance2.csv", system.ResourceDirectory )
   beatData=readBeatData(beatPath)
   beatAnimator=BeatAnimator.create(beatData)
   music=audio.loadSound("music/dance2.mp3")
   buildButtons(beatAnimator)
-
   startDance()
   return true
 end 
