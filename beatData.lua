@@ -46,9 +46,9 @@ end
 
 
 
-BEATTYPE_BASS="b"
+BEATTYPE_LOW="b"
 BEATTYPE_MID="m"
-BEATTYPE_TREBLE="t"
+BEATTYPE_HIGH="t"
 
 BeatAnimator = {}
 BeatAnimator.__index = BeatAnimator

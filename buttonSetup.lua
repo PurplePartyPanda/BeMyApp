@@ -49,9 +49,12 @@ function buildButtons(animator)
   local buttone = Button.create("e", buttonSize(), buttonPos(1,1), "images/button_e.png", "images/button_e_over.png", onButtonTap)
   local buttonf = Button.create("f", buttonSize(), buttonPos(1,2), "images/button_f.png", "images/button_f_over.png", onButtonTap)
 
-  animator:registerBtn(buttona,"t")
-  animator:registerBtn(buttonb,"m")
-  animator:registerBtn(buttonc,"b")
+  animator:registerBtn(buttona,BEATTYPE_HIGH)
+  animator:registerBtn(buttonb,BEATTYPE_MID)
+  animator:registerBtn(buttonc,BEATTYPE_LOW)
+  animator:registerBtn(buttond,BEATTYPE_HIGH)
+  animator:registerBtn(buttone,BEATTYPE_MID)
+  animator:registerBtn(buttonf,BEATTYPE_LOW)
 
   return true
 end
