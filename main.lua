@@ -3,6 +3,8 @@ require("onScreenLog")
 require("danceBattle")
 require("buttons")
 
+bg = nil
+
 function onButtonMenuTap(time, self)
   -- check self
   if self.id == "play" then
@@ -12,6 +14,7 @@ function onButtonMenuTap(time, self)
     buildDanceGui(0)
   elseif self.id == "options" then
     -- show options overlay
+    bg = display.newImage ("images/options.jpg");
   elseif self.id == "levels" then
     -- show level overlay
   elseif self.id == "credits" then
@@ -53,34 +56,34 @@ function getTestAnimation()
 	return spriteInstance
 end
 
-function init()
-  display.setStatusBar(display.HiddenStatusBar)
-  initLog()
-  print(display.contentWidth .. "x" .. display.contentHeight)
-  local bg = display.newImage ("images/outside.jpg");
+function setBG()
   local origwidth = bg.width
   local origheight = bg.height
   if display.contentHeight > 800 then
     bg.height = display.contentHeight
-	bg.width = bg.height / origheight * origwidth
+  bg.width = bg.height / origheight * origwidth
   elseif display.contentHeight < 640 then
     bg.height = display.contentHeight / 640 * 800
-	bg.width = bg.height / origheight * origwidth
+    bg.width = bg.height / origheight * origwidth
   end
-  print(bg.width .. "x" .. bg.height)
   bg.x = display.contentWidth / 2
   bg.y = display.contentHeight / 2
+end
+
+function init()
+  display.setStatusBar(display.HiddenStatusBar)
+  initLog()
+  print(display.contentWidth .. "x" .. display.contentHeight)
+  bg = display.newImage ("images/outside.jpg");
+  
   buttonPlay = Button.create("play", {200,200}, {display.contentWidth / 2,display.contentHeight / 2}, "images/button_a.png", "images/button_a_over.png", onButtonMenuTap)
   
-  --require "movieclip"
-  --local myAnim = movieclip.newAnim( { "images/bear_walk_down1.png","images/bear_walk_down2.png","images/bear_walk_down3.png","images/bear_walk_down4.png","images/bear_walk_down5.png","images/bear_walk_down6.png","images/bear_walk_down7.png","images/bear_walk_down8.png" } )
-  --myAnim.x = display.contentWidth / 2
-  --myAnim.y = display.contentHeight / 2
-  --myAnim:play()
   local animation = getTestAnimation()
   animation.x = display.contentWidth / 2
   animation.y = display.contentHeight / 2
   animation:play()
+
+
 end
 
 init()
