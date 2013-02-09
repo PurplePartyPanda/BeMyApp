@@ -7,7 +7,9 @@ Button.__index = Button
 --   image: the button image (without touch effect)
 --   hoverimage: the button image with press effect
 --   callback: the function to call when the button is pressed
-function Button.create(name, x, y, image, hoverimage, callback)
+
+
+function Button.create(name, size, pos, image, hoverimage, callback)
     local btn = {}            -- our new object
     setmetatable(btn,Button)  -- make Button handle lookup
     --self.__index = self
@@ -18,16 +20,15 @@ function Button.create(name, x, y, image, hoverimage, callback)
 	    uppergap = 60
 	end
 	print("uppergap: " .. uppergap)
-    local buttonheight = (display.contentHeight - uppergap) / 3
-	local buttonwidth = buttonheight * 1.3
+
     btn.button = widget.newButton{
         default = image,
         over = hoverimage,
-        width = buttonwidth,
-        height = buttonheight
+        width = size[1],
+        height = size[2]
     }
-    btn.button.x = (display.contentWidth - buttonwidth) * x + buttonwidth / 2
-    btn.button.y = buttonheight * y + buttonheight / 2 + uppergap
+    btn.button.x = pos[1]
+    btn.button.y = pos[2]
     btn.callBack = callback
     btn:init()
     return btn

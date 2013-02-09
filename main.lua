@@ -39,9 +39,7 @@ function init()
   print(bg.width .. "x" .. bg.height)
   bg.x = display.contentWidth / 2
   bg.y = display.contentHeight / 2
-  buttonPlay = Button.create("play", 0, 0, "images/button_a.png", "images/button_a_over.png", onButtonMenuTap)
-  buttonPlay.button.x = display.contentWidth / 2
-  buttonPlay.button.y = display.contentHeight / 2
+  buttonPlay = Button.create("play", {200,200}, {display.contentWidth / 2,display.contentHeight / 2}, "images/button_a.png", "images/button_a_over.png", onButtonMenuTap)
 end
 
 init()
