@@ -69,10 +69,10 @@ function buildDanceGui(level)
   -- build gui
   -- build characters
   -- readMusicData()
-  local path="C:/Users/sam/Documents/GitHub/BeMyApp/"
-  beatData=readBeatData(path.."music/dance2.csv")
+  beatPath=system.pathForFile( "music/dance2.csv", system.ResourceDirectory )
+  beatData=readBeatData(beatPath)
   beatAnimator=BeatAnimator.create(beatData)
-  music=audio.loadSound(path.."music/dance2.mpe")
+  music=audio.loadSound("music/dance2.mp3")
   buildButtons(beatAnimator)
 
   startDance()
