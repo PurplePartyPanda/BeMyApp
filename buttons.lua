@@ -15,10 +15,6 @@ function Button.create(name, size, pos, image, hoverimage, callback)
     --self.__index = self
     btn.id = name
     local widget = require "widget"
-    local uppergap = display.contentHeight * 60 / 640
-	if display.contentHeight > 640 then
-	    uppergap = 60
-	end
 	print("uppergap: " .. uppergap)
 
     btn.button = widget.newButton{

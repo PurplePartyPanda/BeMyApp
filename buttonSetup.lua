@@ -1,7 +1,12 @@
+function buildUppergap()
+  local result = display.contentHeight * 60 / 640
+  if display.contentHeight > 640 then
+      result = 60
+  end
+  return result
+end
 
-
-local textObject = display.newText(display.contentWidth .. "x" .. display.contentHeight, 160, 50, nil, 24 )
-textObject:setTextColor( 255,255,255 )
+uppergap = buildUppergap();
 
 function onButtonTap(time, self)
   -- check self
@@ -22,11 +27,11 @@ function onButtonTap(time, self)
   end
 end
 function buttonSize()
-  size = {(display.contentHeight - 60) / 3 * 1.3, (display.contentHeight - 60) / 3}
+  size = {(display.contentHeight - uppergap) / 3 * 1.3, (display.contentHeight - uppergap) / 3}
   return size
 end
 function buttonPos(x,y)
-  pos = {(display.contentWidth - (display.contentHeight - 60) / 3 * 1.3) * x + (display.contentHeight - 60) / 3 * 1.3 / 2, (display.contentHeight - 60) / 3 * y + (display.contentHeight - 60) / 3 / 2 + 60}
+  pos = {(display.contentWidth - (display.contentHeight - uppergap) / 3 * 1.3) * x + (display.contentHeight - uppergap) / 3 * 1.3 / 2, (display.contentHeight - uppergap) / 3 * y + (display.contentHeight - uppergap) / 3 / 2 + uppergap}
   return pos
 end
 function buildButtons()
