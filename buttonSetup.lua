@@ -27,11 +27,8 @@ function onButtonFTap(time)
     textObject.text = "button f"
 end
 
-function buildDanceGui(level)
-  -- different level different environment
-  -- build gui
-  -- build characters
-  -- build buttons
+function buildButtons()
+  print("Func: buildButtons")
   local buttona = Button.create(0, 0, "images/button_a.png", "images/button_a_over.png", onButtonATap)
   local buttonb = Button.create(0, 1, "images/button_b.png", "images/button_b_over.png", onButtonBTap)
   local buttonc = Button.create(0, 2, "images/button_c.png", "images/button_c_over.png", onButtonCTap)
