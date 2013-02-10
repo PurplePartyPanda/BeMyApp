@@ -14,13 +14,14 @@ function buttonsDestroyer()
     buttonsMain = nil
     buttonsMain = {}
 end
-function onButtonLevelsTap(time, self)
-  -- check self
+function buildBackButton()
+  table.insert(buttonsMain, Button.create("back", {200,200},  {display.contentWidth -100,display.contentHeight -100}, "images/button_b.png", "images/button_b_over.png", onButtonBackTap))
+end
+function onButtonLevelsTap(time, self) --self must deliver level numer
   buttonsDestroyer()
   buildDanceGui(self.id)
 end
-function onButtonBackTap(time, self)
-  -- show main menu
+function onButtonBackTap(time, self) -- show main menu
   buttonsDestroyer()
   buildMain()
 end
@@ -32,26 +33,22 @@ function onButtonMenuTap(time, self)
   elseif self.id == "options" then
     buttonsDestroyer()
     buildOptions()
-    --and show back button
   elseif self.id == "trophies" then
     buttonsDestroyer()
     buildTrophies()
-    --and show back button
   elseif self.id == "credits" then
     buttonsDestroyer()
     buildCredits()
-    --and show back button
   elseif self.id == "exit" then
     -- close app
   else
     print("it's another button")
   end
-
 end
 
 
-
-function setBG()
+function setBG(newImg) --take string of new bg img and auto resize
+  bg = display.newImage (newImg);
   local origwidth = bg.width
   local origheight = bg.height
   if display.contentHeight > 800 then
@@ -66,8 +63,7 @@ function setBG()
 end
 
 function buildMain()
-  bg = display.newImage ("images/outside.jpg");
-  setBG()
+  setBG("images/outside.jpg")
   buttonsMain[1] = Button.create("levels", {400,200}, {display.contentWidth / 3,display.contentHeight / 3}, "images/button_a.png", "images/button_a_over.png", onButtonMenuTap)
   buttonsMain[2] = Button.create("options", {200,200}, {display.contentWidth / 1.5,display.contentHeight / 3}, "images/button_b.png", "images/button_b_over.png", onButtonMenuTap)
   buttonsMain[3] = Button.create("trophies", {200,200}, {display.contentWidth / 3,display.contentHeight / 1.5}, "images/button_c.png", "images/button_c_over.png", onButtonMenuTap)
@@ -75,23 +71,22 @@ function buildMain()
   buttonsMain[5] = Button.create("exit", {200,200}, {display.contentWidth / 1.5,display.contentHeight / 1.5}, "images/button_e.png", "images/button_e_over.png", onButtonMenuTap)
 end
 function buildLevels()
-  bg = display.newImage ("images/levels.jpg");
-  setBG()
+  setBG("images/levels.jpg")
   buttonsMain[1] = Button.create(0, {200,200}, {display.contentWidth / 2,display.contentHeight / 2}, "images/button_a.png", "images/button_a_over.png", onButtonLevelsTap)
-  buttonsMain[2] = Button.create("back", {200,200},  {display.contentWidth -100,display.contentHeight -100}, "images/button_b.png", "images/button_b_over.png", onButtonBackTap)
+  buildBackButton()
   --and then show game
 end
 function buildOptions()
-  bg = display.newImage ("images/options.jpg");
-  setBG()
+  setBG("images/options.jpg")
+  buildBackButton()
 end
 function buildTrophies()
-  bg = display.newImage ("images/trophies.jpg");
-  setBG()
+  setBG"images/trophies.jpg"
+  buildBackButton()
 end
 function buildCredits()
-  bg = display.newImage ("images/credits.jpg");
-  setBG()
+  setBG("images/credits.jpg")
+  buildBackButton()
 end
 
 function init()
@@ -100,7 +95,6 @@ function init()
   initLog()
   print(display.contentWidth .. "x" .. display.contentHeight)
   buildMain()
-  --buttonBack = Button.create("back",)
 end
 
-init()
+init() --start the purple party power!!!
