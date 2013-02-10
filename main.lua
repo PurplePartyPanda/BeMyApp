@@ -23,6 +23,7 @@ end
 
 function onButtonLevelsTap(time, self) --self must deliver level numer
   buttonsDestroyer()
+  setBG("images/disco_bg.png")
   buildDanceGui(self.id)
 end
 function onButtonBackTap(time, self) -- show main menu

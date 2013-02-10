@@ -41,8 +41,6 @@ function comboAppend(time, input)
       scoreEarned = scoreEarned + 5
     end
 
-    partyPanda:gottaMove("cross")
-
     table.insert(comboRecord, 1, input.id)
     table.remove(comboRecord, 4)
     -- run tracker to check success of finishing a combo
@@ -58,6 +56,11 @@ function comboAppend(time, input)
   end
 
     updateScore(scoreEarned)
+    if input.id=="a" or input.id=="d" or input.id=="e" then
+      partyPanda:gottaMove("cross")
+    else
+      partyPanda:gottaMove("fancyDance")
+    end
 
   print(comboRecord[1], comboRecord[2], comboRecord[3], comboRecord[4])
 end
