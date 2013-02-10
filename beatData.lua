@@ -69,9 +69,11 @@ function BeatAnimator:registerBtn(btn)
 end
 
 function BeatAnimator:reset()
+	Runtime:removeEventListener( "enterFrame", self.updateClosure )
 	for idx,beat in ipairs(self.beatData) do
 		beat.hasBeenPressed=false
 	end
+	self.eventList=nil
 end
 
 function BeatAnimator:start()
@@ -88,8 +90,8 @@ function BeatAnimator:start()
 	end
 	table.sort(self.eventList,function(a,b) return a.time<b.time end)
 
-	local updateClosure=function() self:update() end
-	Runtime:addEventListener( "enterFrame", updateClosure )
+	self.updateClosure=function() self:update() end
+	Runtime:addEventListener( "enterFrame", self.updateClosure )
 	self:update()
 end
 
@@ -109,7 +111,8 @@ function BeatAnimator:update()
 			else targetDir=1 end
 			--local ball=display.newCircle(450+targetX*400,500,6)
 			local ball=display.newImage("images/ball.png",display.contentWidth*(0.5+targetDir*0.4),display.contentHeight)
-			transition.to(ball,{x=display.contentWidth*(0.5+targetDir*0.1),y=display.contentHeight*0.25,time=event.finalTime-curTime,onComplete=function(target) self:removeBall(target) end})
+			transition.to(ball,{x=display.contentWidth*(0.5+targetDir*0.1),time=event.finalTime-curTime,onComplete=function(target) self:removeBall(target) end})
+			transition.to(ball,{y=display.contentHeight*0.25,time=event.finalTime-curTime,transition=easing.outQuad})
 		elseif event.animType=="fadein" then
 			for i,btn in ipairs(self.buttons) do
 				if btn.type==event.beatType then
@@ -132,7 +135,7 @@ function BeatAnimator:removeBall(target)
 	display.remove(target)
 end
 
-
+    --note! currentBeat function can only be called once per button press
 function  BeatAnimator:currentBeat()
 	local MAX_TIMEDIFF=200
 

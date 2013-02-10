@@ -32,6 +32,7 @@ end
 function comboAppend(time, input)
   --comparet to the music data for beat
     local inPitch = input.beatType
+    --note! currentBeat function can only be called once per button press
     local currentPitch=beatAnimator:currentBeat()
   if currentPitch~=BEATTYPE_NONE then -- if on beat
     scoreEarned = 2
@@ -52,18 +53,27 @@ function comboAppend(time, input)
     comboRecord = {}
   end
 
-    score = score + scoreEarned
-    if score>100 then score=100 end
-    if score<=0 then
-      score=0
-      pandaLoses()
-    end
-    setStatusValue(score*0.01)
+    updateScore(scoreEarned)
 
   print(comboRecord[1], comboRecord[2], comboRecord[3], comboRecord[4])
 end
 
+function updateScore(scoreEarned)
+  score=score+scoreEarned
+    if score>100 then score=100 end
+    if score<=0 then
+      score=0
+      onGameDone()
+    end
+    setStatusValue(score*0.01)
+end
+
 function pandaLoses()
+  resultImage=display.newImage("images/lose_img.png",0.2*display.contentWidth,0.2*display.contentHeight)
+end
+
+function pandaWins()
+  resultImage=display.newImage("images/win_img.png",0.4*display.contentWidth,0.4*display.contentHeight)
 end
 
 function startDance()
@@ -72,8 +82,20 @@ function startDance()
   logText:toFront()
   score=50
   summonPanda(125)
-  local audioChannel=audio.play(music)
+  local audioChannel=audio.play(music,{onComplete=onGameDone})
   beatAnimator:start()
+  scoreDrainTimer=timer.performWithDelay(400,onDrainScore,0)
+end
+
+function onDrainScore()
+  updateScore(-1)
+  end
+
+function onGameDone()
+  timer.cancel(scoreDrainTimer)
+  beatAnimator:reset()
+  if score<30 then pandaLoses()
+  else pandaWins() end
 end
 
 function buildDanceGui(level)
