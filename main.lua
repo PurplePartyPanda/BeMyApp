@@ -4,21 +4,43 @@ require("danceBattle")
 require("buttons")
 
 bg = nil
+buttonsMain = {}
 
+function buttonsDestroyer()
+  --destroy the current button set
+  for i=1, table.getn(buttonsMain) do
+      Button.destroy(buttonsMain[i])
+    end
+    buttonsMain = nil
+    buttonsMain = {}
+end
+function onButtonLevelsTap(time, self)
+  -- check self
+  buttonsDestroyer()
+  buildDanceGui(self.id)
+end
+function onButtonBackTap(time, self)
+  -- show main menu
+  buttonsDestroyer()
+  buildMain()
+end
 function onButtonMenuTap(time, self)
   -- check self
-  if self.id == "play" then
-    --destroy the main menu
-    Button.destroy(self)
-    --and then show game
-    buildDanceGui(0)
+  if self.id == "levels" then
+    buttonsDestroyer()
+    buildLevels()
   elseif self.id == "options" then
-    -- show options overlay
-    bg = display.newImage ("images/options.jpg");
-  elseif self.id == "levels" then
-    -- show level overlay
+    buttonsDestroyer()
+    buildOptions()
+    --and show back button
+  elseif self.id == "trophies" then
+    buttonsDestroyer()
+    buildTrophies()
+    --and show back button
   elseif self.id == "credits" then
-    -- show credit overlay
+    buttonsDestroyer()
+    buildCredits()
+    --and show back button
   elseif self.id == "exit" then
     -- close app
   else
@@ -42,18 +64,34 @@ function setBG()
   bg.x = display.contentWidth / 2
   bg.y = display.contentHeight / 2
 end
+
 function buildMain()
   bg = display.newImage ("images/outside.jpg");
   setBG()
-  local buttonPlay = Button.create("play", {400,200}, {display.contentWidth / 3,display.contentHeight / 3}, "images/button_a.png", "images/button_a_over.png", onButtonMenuTap)
-  local buttonLevels = Button.create("levels", {200,200}, {display.contentWidth / 1.5,display.contentHeight / 3}, "images/button_b.png", "images/button_b_over.png", onButtonMenuTap)
-  local buttonOptions = Button.create("options", {200,200}, {display.contentWidth / 3,display.contentHeight / 1.5}, "images/button_c.png", "images/button_c_over.png", onButtonMenuTap)
-  local buttonCredits = Button.create("creits", {200,200}, {display.contentWidth / 2,display.contentHeight / 1.5}, "images/button_d.png", "images/button_d_over.png", onButtonMenuTap)
-  local buttonExit = Button.create("exit", {200,200}, {display.contentWidth / 1.5,display.contentHeight / 1.5}, "images/button_e.png", "images/button_e_over.png", onButtonMenuTap)
+  buttonsMain[1] = Button.create("levels", {400,200}, {display.contentWidth / 3,display.contentHeight / 3}, "images/button_a.png", "images/button_a_over.png", onButtonMenuTap)
+  buttonsMain[2] = Button.create("options", {200,200}, {display.contentWidth / 1.5,display.contentHeight / 3}, "images/button_b.png", "images/button_b_over.png", onButtonMenuTap)
+  buttonsMain[3] = Button.create("trophies", {200,200}, {display.contentWidth / 3,display.contentHeight / 1.5}, "images/button_c.png", "images/button_c_over.png", onButtonMenuTap)
+  buttonsMain[4] = Button.create("credits", {200,200}, {display.contentWidth / 2,display.contentHeight / 1.5}, "images/button_d.png", "images/button_d_over.png", onButtonMenuTap)
+  buttonsMain[5] = Button.create("exit", {200,200}, {display.contentWidth / 1.5,display.contentHeight / 1.5}, "images/button_e.png", "images/button_e_over.png", onButtonMenuTap)
 end
-function buildOption()
+function buildLevels()
+  bg = display.newImage ("images/levels.jpg");
+  setBG()
+  buttonsMain[1] = Button.create(0, {200,200}, {display.contentWidth / 2,display.contentHeight / 2}, "images/button_a.png", "images/button_a_over.png", onButtonLevelsTap)
+  buttonsMain[2] = Button.create("back", {200,200},  {display.contentWidth -100,display.contentHeight -100}, "images/button_b.png", "images/button_b_over.png", onButtonBackTap)
+  --and then show game
 end
-function buildCredit()
+function buildOptions()
+  bg = display.newImage ("images/options.jpg");
+  setBG()
+end
+function buildTrophies()
+  bg = display.newImage ("images/trophies.jpg");
+  setBG()
+end
+function buildCredits()
+  bg = display.newImage ("images/credits.jpg");
+  setBG()
 end
 
 function init()
