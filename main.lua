@@ -5,6 +5,7 @@ require("buttons")
 
 bg = nil
 buttonsMain = {}
+imgSet = {}
 progress = 0
 function buttonsDestroyer()
   --destroy the current button set
@@ -17,8 +18,8 @@ end
 function buildBackButton()
   table.insert(buttonsMain, Button.create("back", {150,100},  {75,display.contentHeight -50}, "images/back.png", "images/back.png", onButtonBackTap))
 end
-function buildNextButton(onButtonNextTap)
-  table.insert(buttonsMain, Button.create("next", {150,100},  {display.contentWidth-75,display.contentHeight -50}, "images/next.png", "images/next.png", onButtonNextTap))
+function buildNextButton(callback)
+  table.insert(buttonsMain, Button.create("next", {150,100},  {display.contentWidth-75,display.contentHeight -50}, "images/next.png", "images/next.png", callback))
 end
 
 function onButtonLevelsTap(time, self) --self must deliver level numer
@@ -34,7 +35,14 @@ function showComic(num)
   buttonsDestroyer()
   if num==0 then
     setBG("images/comic_0.png")
+    imgSet[1] =  display.newImage ("images/bouncer_BRAD.png");
+    imgSet[1].x = display.contentWidth -200
+    imgSet[1].y = display.contentHeight
+    imgSet[2] =  display.newImage ("images/cross_03.png");
+    imgSet[2].x = display.contentWidth / 4
+    imgSet[2].y = display.contentHeight / 1.2
     progress = progress + 1
+    
     buildNextButton(buildLevels)
     buildBackButton()
   else
@@ -95,7 +103,12 @@ function buildMain()
 end
 function buildLevels()
   setBG("images/levels.jpg")
-  buttonsMain[1] = Button.create(0, {200,200}, {display.contentWidth / 2,display.contentHeight / 2}, "images/button_a.png", "images/button_a_over.png", onButtonLevelsTap)
+  buttonsMain[1] = Button.create(0, {200,200}, {display.contentWidth / 2 - 210 ,display.contentHeight / 2 - 80}, "images/button_a.png", "images/button_a_over.png", onButtonLevelsTap)
+  buttonsMain[2] = Button.create(1, {200,200}, {display.contentWidth / 2,display.contentHeight / 2 - 80}, "images/button_b.png", "images/button_b_over.png", onButtonLevelsTap)
+  buttonsMain[3] = Button.create(2, {200,200}, {display.contentWidth / 2 + 210 ,display.contentHeight / 2 - 80}, "images/button_c.png", "images/button_c_over.png", onButtonLevelsTap)
+  buttonsMain[4] = Button.create(3, {200,200}, {display.contentWidth / 2 - 210,display.contentHeight / 2 + 130}, "images/button_d.png", "images/button_d_over.png", onButtonLevelsTap)
+  buttonsMain[5] = Button.create(4, {200,200}, {display.contentWidth / 2,display.contentHeight / 2 + 130}, "images/button_e.png", "images/button_e_over.png", onButtonLevelsTap)
+  buttonsMain[6] = Button.create(5, {200,200}, {display.contentWidth / 2 + 210,display.contentHeight / 2 + 130}, "images/button_f.png", "images/button_c_over.png", onButtonLevelsTap)
   buildBackButton()
   --and then show game
 end
