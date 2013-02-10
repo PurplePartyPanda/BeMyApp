@@ -89,7 +89,7 @@ function startDance()
   -- the major logic of the game
   -- play music
   logText:toFront()
-  summonPanda()
+  summonPanda(125)
   local audioChannel=audio.play(music)
   beatAnimator:start()
 end
