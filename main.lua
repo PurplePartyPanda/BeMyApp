@@ -55,7 +55,9 @@ function buildOption()
 end
 function buildCredit()
 end
+
 function init()
+  system.activate("multitouch")
   display.setStatusBar(display.HiddenStatusBar)
   initLog()
   print(display.contentWidth .. "x" .. display.contentHeight)
