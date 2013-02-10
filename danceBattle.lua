@@ -148,10 +148,18 @@ function buildDanceGui(level)
   -- build characters
   -- readMusicData()
   
-  beatPath=system.pathForFile( "music/dance2.csv", system.ResourceDirectory )
+  if level==2 then
+    musicFile="music/feelgood.mp3"
+    csvFile="music/feelgood.csv"
+  else
+    musicFile="music/dance2.mp3"
+    csvFile="music/dance2.csv"
+  end
+
+  beatPath=system.pathForFile( csvFile, system.ResourceDirectory )
   beatData=readBeatData(beatPath)
   beatAnimator=BeatAnimator.create(beatData)
-  music=audio.loadSound("music/dance2.mp3")
+  music=audio.loadSound(musicFile)
   buildButtons(beatAnimator)
   makeStatusBar()
   beatAnimator:reset()
