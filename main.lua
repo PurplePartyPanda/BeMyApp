@@ -15,6 +15,7 @@ function buttonsDestroyer()
     buttonsMain = nil
     buttonsMain = {}
 end
+
 function buildBackButton()
   table.insert(buttonsMain, Button.create("back", {150,100},  {75,display.contentHeight -50}, "images/back.png", "images/back.png", onButtonBackTap))
 end
@@ -31,9 +32,9 @@ function onButtonBackTap(time, self) -- show main menu
   buttonsDestroyer()
   buildMain()
 end
-function showComic(num)
+function showComic()
   buttonsDestroyer()
-  if num==0 then
+  if progress==0 then
     setBG("images/comic_0.png")
     imgSet[1] =  display.newImage ("images/bouncer_BRAD.png");
     imgSet[1].x = display.contentWidth -200
@@ -42,10 +43,20 @@ function showComic(num)
     imgSet[2].x = display.contentWidth / 4
     imgSet[2].y = display.contentHeight / 1.2
     progress = progress + 1
-    
-    buildNextButton(buildLevels)
+    buildNextButton(showComic)
     buildBackButton()
+  elseif progress==1 then
+    progress = progress + 1
+    local textField = nil
+    textField = display.newText("You can't come in \n You're WEIRD", display.contentWidth - 350, 0, native.systemFont, 40)
+    buildNextButton(showComic)
+  elseif progress==2 then
+    progress = progress + 1
+    local textField = nil
+    textField = display.newText("\nWAIT!!!!\nLet me show you my MAD MOVES",0, 0, native.systemFont, 40)
+    buildNextButton(buildLevels)
   else
+    textField = nil
     buildLevels()
   end
 end
@@ -54,7 +65,7 @@ function onButtonMenuTap(time, self)
   -- check self
   if self.id == "play" then
     if progress == 0 then
-      showComic(0)
+      showComic()
     else
       buildLevels()
     end
