@@ -74,6 +74,7 @@ function BeatAnimator:reset()
 		beat.hasBeenPressed=false
 	end
 	self.eventList=nil
+   self.beatIdx=1
 end
 
 function BeatAnimator:start()

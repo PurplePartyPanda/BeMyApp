@@ -37,7 +37,11 @@ function comboAppend(time, input)
   if currentPitch~=BEATTYPE_NONE then -- if on beat
     scoreEarned = 2
 
-    if inPitch==currentPitch then scoreEarned = scoreEarned + 5 end
+    if inPitch==currentPitch then
+      scoreEarned = scoreEarned + 5
+    end
+
+    partyPanda:gottaMove("cross")
 
     table.insert(comboRecord, 1, input.id)
     table.remove(comboRecord, 4)
@@ -81,7 +85,7 @@ function startDance()
   -- play music
   logText:toFront()
   score=50
-  summonPanda(125)
+  partyPanda:startDancing()
   local audioChannel=audio.play(music,{onComplete=onGameDone})
   beatAnimator:start()
   scoreDrainTimer=timer.performWithDelay(400,onDrainScore,0)
@@ -112,6 +116,9 @@ function buildDanceGui(level)
   buildButtons(beatAnimator)
   makeStatusBar()
   beatAnimator:reset()
+
+  partyPanda=PartyPanda.create(125)
+  partyPanda:prepareToParty()
 
   startDance()
   return true
