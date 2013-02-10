@@ -63,12 +63,15 @@ function setBG(newImg) --take string of new bg img and auto resize
 end
 
 function buildMain()
-  setBG("images/outside.jpg")
-  buttonsMain[1] = Button.create("levels", {440,150}, {display.contentWidth / 3,display.contentHeight / 3}, "images/menu_01.png", "images/menu_01_over.png", onButtonMenuTap)
-  buttonsMain[2] = Button.create("options", {150,150}, {display.contentWidth / 1.5,display.contentHeight / 3}, "images/menu_02.png", "images/menu_02_over.png", onButtonMenuTap)
-  buttonsMain[3] = Button.create("trophies", {262,150}, {display.contentWidth / 3,display.contentHeight / 1.5}, "images/menu_03.png", "images/menu_03_over.png", onButtonMenuTap)
-  buttonsMain[4] = Button.create("credits", {150,150}, {display.contentWidth / 2,display.contentHeight / 1.5}, "images/menu_04.png", "images/menu_04_over.png", onButtonMenuTap)
-  buttonsMain[5] = Button.create("exit", {150,150}, {display.contentWidth / 1.5,display.contentHeight / 1.5}, "images/menu_05.png", "images/menu_05_over.png", onButtonMenuTap)
+  setBG("images/outside.png")
+  local title =  display.newImage ("images/title.png");
+  title.x = display.contentWidth /2
+  title.y = display.contentHeight / 4
+  buttonsMain[1] = Button.create("levels", {440,150}, {display.contentWidth / 2 - 100 ,display.contentHeight / 1.8}, "images/menu_01.png", "images/menu_01_over.png", onButtonMenuTap)
+  buttonsMain[2] = Button.create("options", {150,150}, {display.contentWidth / 2 + 230,display.contentHeight / 1.8}, "images/menu_02.png", "images/menu_02_over.png", onButtonMenuTap)
+  buttonsMain[3] = Button.create("trophies", {262,150}, {display.contentWidth / 2 -190,display.contentHeight /1.2}, "images/menu_03.png", "images/menu_03_over.png", onButtonMenuTap)
+  buttonsMain[4] = Button.create("credits", {150,150}, {display.contentWidth / 2 + 45 ,display.contentHeight /1.2}, "images/menu_04.png", "images/menu_04_over.png", onButtonMenuTap)
+  buttonsMain[5] = Button.create("exit", {150,150}, {display.contentWidth / 2 + 230,display.contentHeight /1.2}, "images/menu_05.png", "images/menu_05_over.png", onButtonMenuTap)
 end
 function buildLevels()
   setBG("images/levels.jpg")
