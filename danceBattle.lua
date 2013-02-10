@@ -39,6 +39,7 @@ function comboAppend(time, input)
 
     if inPitch==currentPitch then
       scoreEarned = scoreEarned + 5
+      onMoveHit()
     end
 
     table.insert(comboRecord, 1, input.id)
@@ -53,6 +54,7 @@ function comboAppend(time, input)
     scoreEarned=-3
     comboRecord = nil
     comboRecord = {}
+    onMoveMiss()
   end
 
     updateScore(scoreEarned)
@@ -75,11 +77,37 @@ function updateScore(scoreEarned)
     setStatusValue(score*0.01)
 end
 
+function removeResultImage()
+  if resultImage==nil then return end
+  display.remove(resultImage)
+  resultImage=nil
+  transition.cancel(resultImageTransition)
+  resultImageTransition=nil
+end
+
+function onMoveHit()
+  removeResultImage()
+  resultImage=display.newImage("images/text_perfect.png",0.4*display.contentWidth,0.1*display.contentHeight)
+  resultImage.alpha=0.0
+  transition.to(resultImage,{time=40,alpha=1.0,y=0.12*display.contentHeight})
+  resultImageTransition=transition.to(resultImage,{delay=100,time=200,alpha=0.0,y=0.2*display.contentHeight,onComplete=removeResultImage})
+end
+
+function onMoveMiss()
+  removeResultImage()
+  resultImage=display.newImage("images/text_miss.png",0.4*display.contentWidth,0.7*display.contentHeight)
+  resultImage.alpha=0.0
+  transition.to(resultImage,{time=40,alpha=1.0,y=0.12*display.contentHeight})
+  resultImageTransition=transition.to(resultImage,{delay=100,time=200,alpha=0.0,y=0.2*display.contentHeight,onComplete=removeResultImage})
+end
+
 function pandaLoses()
+  removeResultImage()
   resultImage=display.newImage("images/lose_img.png",0.2*display.contentWidth,0.2*display.contentHeight)
 end
 
 function pandaWins()
+  removeResultImage()
   resultImage=display.newImage("images/win_img.png",0.4*display.contentWidth,0.4*display.contentHeight)
 end
 
