@@ -15,7 +15,7 @@ function buttonsDestroyer()
     buttonsMain = {}
 end
 function buildBackButton()
-  table.insert(buttonsMain, Button.create("back", {200,200},  {display.contentWidth -100,display.contentHeight -100}, "images/button_b.png", "images/button_b_over.png", onButtonBackTap))
+  table.insert(buttonsMain, Button.create("back", {150,100},  {75,display.contentHeight -50}, "images/back.png", "images/back.png", onButtonBackTap))
 end
 function onButtonLevelsTap(time, self) --self must deliver level numer
   buttonsDestroyer()
