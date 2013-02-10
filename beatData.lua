@@ -98,12 +98,12 @@ function BeatAnimator:update()
 	while self.eventIdx<=#self.eventList and curTime>self.eventList[self.eventIdx].time do
 		event=self.eventList[self.eventIdx]
 		if event.animType=="makeball" then
-			local targetX
-			if event.beatType==BEATTYPE_LOW then targetX=-1
-			else targetX=1 end
+			local targetDir
+			if event.beatType==BEATTYPE_LOW then targetDir=-1
+			else targetDir=1 end
 			--local ball=display.newCircle(450+targetX*400,500,6)
-			local ball=display.newImage("images/ball.png",450+targetX*400,500)
-			transition.to(ball,{x=450+targetX*80,y=120,time=event.finalTime-curTime,onComplete=function(target) self:removeBall(target) end})
+			local ball=display.newImage("images/ball.png",display.contentWidth*(0.5+targetDir*0.4),display.contentHeight)
+			transition.to(ball,{x=display.contentWidth*(0.5+targetDir*0.1),y=display.contentHeight*0.25,time=event.finalTime-curTime,onComplete=function(target) self:removeBall(target) end})
 		elseif event.animType=="fadein" then
 			for i,btn in ipairs(self.buttons) do
 				if btn.type==event.beatType then
@@ -123,7 +123,6 @@ end
 
 
 function BeatAnimator:removeBall(target)
-	print "---- remove -----"
 	display.remove(target)
 end
 
@@ -154,5 +153,7 @@ function BeatAnimator:isCloserTo(t,idx1,idx2)
 	t2=self.beatData[idx2].time
 	return math.abs(t-t1)<math.abs(t-t2)
 end
+
+
 
 --acc = BeatAnimator.create(beatData)

@@ -31,12 +31,12 @@ function buildButtons(animator)
   local buttone = Button.create("e", buttonSize(), buttonPos(1,1), "images/RM.png", "images/RM_over.png", comboAppend)
   local buttonf = Button.create("f", buttonSize(), buttonPos(1,2), "images/RL.png", "images/RL_over.png", comboAppend)
 
-  animator:registerBtn(buttona,BEATTYPE_HIGH)
-  animator:registerBtn(buttonb,BEATTYPE_MID)
+  animator:registerBtn(buttona,BEATTYPE_LOW)
+  animator:registerBtn(buttonb,BEATTYPE_LOW)
   animator:registerBtn(buttonc,BEATTYPE_LOW)
   animator:registerBtn(buttond,BEATTYPE_HIGH)
-  animator:registerBtn(buttone,BEATTYPE_MID)
-  animator:registerBtn(buttonf,BEATTYPE_LOW)
+  animator:registerBtn(buttone,BEATTYPE_HIGH)
+  animator:registerBtn(buttonf,BEATTYPE_HIGH)
 
   return true
 end

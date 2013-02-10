@@ -1,19 +1,17 @@
-statusBarHealth=50
+statusBarHealth=0.5
 
 function makeStatusBar()
 	statusBarMain=display.newGroup()
-	statusBarMain.x=600
-	statusBarMain.y=20
-	statusBarSub1=display.newRoundedRect( statusBarMain,0,0,30,100, 8 )
-	statusBarSub1:setStrokeColor(0,0,0)
-	statusBarSub1:setFillColor(255,0,0)
-	statusBarSub2=display.newRoundedRect( statusBarMain,0,0,30,100,8 )
-	statusBarSub2:setFillColor(0,180,0)
-	setStatusValue(40)
+	statusBarMain.x=display.contentWidth*0.8
+	statusBarMain.y=display.contentHeight*0.2
+	statusBarSub1=display.newImage( statusBarMain,"images/statusbar.png",0,0 )
+	statusBarSub2=display.newImage( statusBarMain,"images/statusbar_over.png",0,0 )
+	setStatusValue(0.5)
 end
 
 function setStatusValue(value)
-	statusBarHealth=math.min(value,100)
-	statusBarSub2.height=value
-	statusBarSub2.y=100-value*0.5
+	value=value/100.0
+	statusBarHealth=math.min(value,1.0)
+	statusBarSub2.yScale=value
+	statusBarSub2.y=statusBarSub1.height*(0.98-value*0.5)
 end
