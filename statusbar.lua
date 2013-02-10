@@ -1,4 +1,3 @@
-statusBarHealth=0.5
 
 function makeStatusBar()
 	statusBarMain=display.newGroup()
@@ -10,8 +9,7 @@ function makeStatusBar()
 end
 
 function setStatusValue(value)
-	value=value/100.0
-	statusBarHealth=math.min(value,1.0)
-	statusBarSub2.yScale=value
+	value=math.min(value,1.0)
+	statusBarSub2.yScale=value*0.98
 	statusBarSub2.y=statusBarSub1.height*(0.98-value*0.5)
 end

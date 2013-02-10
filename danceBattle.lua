@@ -52,43 +52,41 @@ function comboAppend(time, input)
   --comparet to the music data for beat
   if onBeatTracker() then -- if on beat
     scoreEarned = 3
-    local inPitch = nil
-    if input.id == "a" or input.id == "d" then
-      inPitch = BEATTYPE_HIGH
-    elseif input.id == "b" or input.id == "e" then
-      inPitch = BEATTYPE_MID
-    elseif input.id == "c" or input.id == "f" then
-      inPitch = BEATTYPE_LOW
-    else 
-      error("input button error")
-    end
+    local inPitch = input.beatType
     if onPitchTracker(inPitch) then scoreEarned = scoreEarned + 5 end
     table.insert(comboRecord, 1, input.id)
     table.remove(comboRecord, 4)
     -- run tracker to check success of finishing a combo
     local isCombo = comboTracker()
     if isCombo then scoreEarned = scoreEarned + 10 end
-    score = score + scoreEarned
-
-    setStatusValue(score)
 
     print("Earned: " .. scoreEarned .. " TOTAL:" .. score)
-    scoreEarned = 0
       --if success, recreate combo record
   else -- recreate combo record
+    scoreEarned=-2
     comboRecord = nil
     comboRecord = {}
   end
 
+    score = score + scoreEarned
+    if score>100 then score=100 end
+    if score<=0 then
+      score=0
+      pandaLoses()
+    end
+    setStatusValue(score*0.01)
+
   print(comboRecord[1], comboRecord[2], comboRecord[3], comboRecord[4])
 end
 
-
+function pandaLoses()
+end
 
 function startDance()
   -- the major logic of the game
   -- play music
   logText:toFront()
+  score=50
   summonPanda(125)
   local audioChannel=audio.play(music)
   beatAnimator:start()
