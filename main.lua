@@ -128,7 +128,7 @@ end
 function init()
   system.activate("multitouch")
   display.setStatusBar(display.HiddenStatusBar)
-  initLog()
+  --initLog()
   print(display.contentWidth .. "x" .. display.contentHeight)
   buildMain()
 end

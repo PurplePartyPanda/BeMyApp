@@ -58,7 +58,7 @@ function comboAppend(time, input)
   end
 
     updateScore(scoreEarned)
-    if input.id=="a" or input.id=="d" or input.id=="e" then
+    if input.id=="c" or input.id=="d" or input.id=="e" then
       partyPanda:gottaMove("cross")
     else
       partyPanda:gottaMove("fancyDance")
@@ -101,6 +101,14 @@ function onMoveMiss()
   resultImageTransition=transition.to(resultImage,{delay=100,time=200,alpha=0.0,y=0.2*display.contentHeight,onComplete=removeResultImage})
 end
 
+fansImage=nil
+function showFans()
+  if fansImage~=nil then return end
+  local aspect = 0.4
+  fansImage=display.newImage("images/fans.png",display.contentWidth*0.2,display.contentHeight)
+  transition.to(fansImage,{time=500,y=display.contentHeight*0.8})
+end
+
 function pandaLoses()
   removeResultImage()
   resultImage=display.newImage("images/lose_img.png",0.2*display.contentWidth,0.2*display.contentHeight)
@@ -109,12 +117,12 @@ end
 function pandaWins()
   removeResultImage()
   resultImage=display.newImage("images/win_img.png",0.4*display.contentWidth,0.4*display.contentHeight)
+  showFans()
 end
 
 function startDance()
   -- the major logic of the game
   -- play music
-  logText:toFront()
   score=50
   partyPanda:startDancing()
   local audioChannel=audio.play(music,{onComplete=onGameDone})
