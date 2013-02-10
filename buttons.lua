@@ -9,7 +9,7 @@ Button.__index = Button
 --   callback: the function to call when the button is pressed
 
 
-function Button.create(name, size, pos, image, hoverimage, callback)
+function Button.create(name, size, pos, image, hoverimage, callback,beatType)
     local btn = {}            -- our new object
     setmetatable(btn,Button)  -- make Button handle lookup
     --self.__index = self
@@ -25,6 +25,7 @@ function Button.create(name, size, pos, image, hoverimage, callback)
     btn.button.x = pos[1]
     btn.button.y = pos[2]
     btn.callBack = callback
+    btn.beatType=beatType
     btn:init()
     return btn
 end

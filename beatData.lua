@@ -63,8 +63,8 @@ function BeatAnimator.create(beatData)
    return obj
 end
 
-function BeatAnimator:registerBtn(btn,type)
-   table.insert(self.buttons,{btn=btn,type=type,pos=btn.button.x})
+function BeatAnimator:registerBtn(btn)
+   table.insert(self.buttons,{btn=btn,type=btn.beatType})
    btn.button.alpha=0.5
 end
 
