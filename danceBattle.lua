@@ -2,6 +2,7 @@ require("buttons")
 require("buttonSetup")
 require("beatData")
 require("statusbar")
+require("pandaPower")
 comboRecord = {}
 score = 0
 scoreEarned = 0
@@ -88,6 +89,7 @@ function startDance()
   -- the major logic of the game
   -- play music
   logText:toFront()
+  summonPanda()
   local audioChannel=audio.play(music)
   beatAnimator:start()
 end
