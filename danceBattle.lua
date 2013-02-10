@@ -7,26 +7,7 @@ comboRecord = {}
 score = 0
 scoreEarned = 0
 health = 50
-function onBeatTracker()
-  local result = nil
-  print(beatAnimator:currentBeat())
-  if beatAnimator:currentBeat() ~= BEATTYPE_NONE then
-    result = true
-  else
-    result = false
-  end
-  --if input == current beat
-  return result
-end
-function onPitchTracker(input)
-  local result = nil
-  if input == beatAnimator:currentBeat() then
-    result = true
-  else
-    result = false
-  end
-  return result
-end
+
 function comboTracker()
   -- keep track of button Sequence here
   local result = nil
@@ -50,10 +31,13 @@ end
 
 function comboAppend(time, input)
   --comparet to the music data for beat
-  if onBeatTracker() then -- if on beat
-    scoreEarned = 3
     local inPitch = input.beatType
-    if onPitchTracker(inPitch) then scoreEarned = scoreEarned + 5 end
+    local currentPitch=beatAnimator:currentBeat()
+  if currentPitch~=BEATTYPE_NONE then -- if on beat
+    scoreEarned = 2
+
+    if inPitch==currentPitch then scoreEarned = scoreEarned + 5 end
+
     table.insert(comboRecord, 1, input.id)
     table.remove(comboRecord, 4)
     -- run tracker to check success of finishing a combo
@@ -63,7 +47,7 @@ function comboAppend(time, input)
     print("Earned: " .. scoreEarned .. " TOTAL:" .. score)
       --if success, recreate combo record
   else -- recreate combo record
-    scoreEarned=-2
+    scoreEarned=-3
     comboRecord = nil
     comboRecord = {}
   end
@@ -105,6 +89,8 @@ function buildDanceGui(level)
   music=audio.loadSound("music/dance2.mp3")
   buildButtons(beatAnimator)
   makeStatusBar()
+  beatAnimator:reset()
+
   startDance()
   return true
 end 

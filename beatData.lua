@@ -68,6 +68,12 @@ function BeatAnimator:registerBtn(btn)
    btn.button.alpha=0.5
 end
 
+function BeatAnimator:reset()
+	for idx,beat in ipairs(self.beatData) do
+		beat.hasBeenPressed=false
+	end
+end
+
 function BeatAnimator:start()
 	print("----------------------- start ------------------------")
 	self.startTime=system.getTimer()
@@ -142,7 +148,11 @@ function  BeatAnimator:currentBeat()
 	local curBeat=self.beatData[beatSrchIdx]
 	local timediff=math.abs(curTime-curBeat.time)
 	if timediff>MAX_TIMEDIFF then return BEATTYPE_NONE
-	else return curBeat.type end
+	elseif curBeat.hasBeenPressed then return BEATTYPE_NONE
+	else
+		curBeat.hasBeenPressed=true
+		return curBeat.type
+	end
 
 end
 

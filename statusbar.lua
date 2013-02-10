@@ -2,7 +2,7 @@
 function makeStatusBar()
 	statusBarMain=display.newGroup()
 	statusBarMain.x=display.contentWidth*0.8
-	statusBarMain.y=display.contentHeight*0.2
+	statusBarMain.y=display.contentHeight*0.1
 	statusBarSub1=display.newImage( statusBarMain,"images/statusbar.png",0,0 )
 	statusBarSub2=display.newImage( statusBarMain,"images/statusbar_over.png",0,0 )
 	setStatusValue(0.5)
