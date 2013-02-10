@@ -64,11 +64,11 @@ end
 
 function buildMain()
   setBG("images/outside.jpg")
-  buttonsMain[1] = Button.create("levels", {400,200}, {display.contentWidth / 3,display.contentHeight / 3}, "images/button_a.png", "images/button_a_over.png", onButtonMenuTap)
-  buttonsMain[2] = Button.create("options", {200,200}, {display.contentWidth / 1.5,display.contentHeight / 3}, "images/button_b.png", "images/button_b_over.png", onButtonMenuTap)
-  buttonsMain[3] = Button.create("trophies", {200,200}, {display.contentWidth / 3,display.contentHeight / 1.5}, "images/button_c.png", "images/button_c_over.png", onButtonMenuTap)
-  buttonsMain[4] = Button.create("credits", {200,200}, {display.contentWidth / 2,display.contentHeight / 1.5}, "images/button_d.png", "images/button_d_over.png", onButtonMenuTap)
-  buttonsMain[5] = Button.create("exit", {200,200}, {display.contentWidth / 1.5,display.contentHeight / 1.5}, "images/button_e.png", "images/button_e_over.png", onButtonMenuTap)
+  buttonsMain[1] = Button.create("levels", {440,150}, {display.contentWidth / 3,display.contentHeight / 3}, "images/menu_01.png", "images/menu_01_over.png", onButtonMenuTap)
+  buttonsMain[2] = Button.create("options", {150,150}, {display.contentWidth / 1.5,display.contentHeight / 3}, "images/menu_02.png", "images/menu_02_over.png", onButtonMenuTap)
+  buttonsMain[3] = Button.create("trophies", {262,150}, {display.contentWidth / 3,display.contentHeight / 1.5}, "images/menu_03.png", "images/menu_03_over.png", onButtonMenuTap)
+  buttonsMain[4] = Button.create("credits", {150,150}, {display.contentWidth / 2,display.contentHeight / 1.5}, "images/menu_04.png", "images/menu_04_over.png", onButtonMenuTap)
+  buttonsMain[5] = Button.create("exit", {150,150}, {display.contentWidth / 1.5,display.contentHeight / 1.5}, "images/menu_05.png", "images/menu_05_over.png", onButtonMenuTap)
 end
 function buildLevels()
   setBG("images/levels.jpg")
