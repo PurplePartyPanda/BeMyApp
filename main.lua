@@ -5,7 +5,7 @@ require("buttons")
 
 bg = nil
 buttonsMain = {}
-
+progress = 0
 function buttonsDestroyer()
   --destroy the current button set
   for i=1, table.getn(buttonsMain) do
@@ -17,6 +17,10 @@ end
 function buildBackButton()
   table.insert(buttonsMain, Button.create("back", {150,100},  {75,display.contentHeight -50}, "images/back.png", "images/back.png", onButtonBackTap))
 end
+function buildNextButton(onButtonNextTap)
+  table.insert(buttonsMain, Button.create("next", {150,100},  {display.contentWidth-75,display.contentHeight -50}, "images/next.png", "images/next.png", onButtonNextTap))
+end
+
 function onButtonLevelsTap(time, self) --self must deliver level numer
   buttonsDestroyer()
   buildDanceGui(self.id)
@@ -25,11 +29,26 @@ function onButtonBackTap(time, self) -- show main menu
   buttonsDestroyer()
   buildMain()
 end
+function showComic(num)
+  buttonsDestroyer()
+  if num==0 then
+    setBG("images/comic_0.png")
+    progress = progress + 1
+    buildNextButton(buildLevels)
+    buildBackButton()
+  else
+    buildLevels()
+  end
+end
+
 function onButtonMenuTap(time, self)
   -- check self
-  if self.id == "levels" then
-    buttonsDestroyer()
-    buildLevels()
+  if self.id == "play" then
+    if progress == 0 then
+      showComic(0)
+    else
+      buildLevels()
+    end
   elseif self.id == "options" then
     buttonsDestroyer()
     buildOptions()
@@ -67,7 +86,7 @@ function buildMain()
   local title =  display.newImage ("images/title.png");
   title.x = display.contentWidth /2
   title.y = display.contentHeight / 4
-  buttonsMain[1] = Button.create("levels", {440,150}, {display.contentWidth / 2 - 100 ,display.contentHeight / 1.8}, "images/menu_01.png", "images/menu_01_over.png", onButtonMenuTap)
+  buttonsMain[1] = Button.create("play", {440,150}, {display.contentWidth / 2 - 100 ,display.contentHeight / 1.8}, "images/menu_01.png", "images/menu_01_over.png", onButtonMenuTap)
   buttonsMain[2] = Button.create("options", {150,150}, {display.contentWidth / 2 + 230,display.contentHeight / 1.8}, "images/menu_02.png", "images/menu_02_over.png", onButtonMenuTap)
   buttonsMain[3] = Button.create("trophies", {262,150}, {display.contentWidth / 2 -190,display.contentHeight /1.2}, "images/menu_03.png", "images/menu_03_over.png", onButtonMenuTap)
   buttonsMain[4] = Button.create("credits", {150,150}, {display.contentWidth / 2 + 45 ,display.contentHeight /1.2}, "images/menu_04.png", "images/menu_04_over.png", onButtonMenuTap)
