@@ -2,7 +2,7 @@ statusBarHealth=50
 
 function makeStatusBar()
 	statusBarMain=display.newGroup()
-	statusBarMain.x=800
+	statusBarMain.x=600
 	statusBarMain.y=20
 	statusBarSub1=display.newRoundedRect( statusBarMain,0,0,30,100, 8 )
 	statusBarSub1:setStrokeColor(0,0,0)

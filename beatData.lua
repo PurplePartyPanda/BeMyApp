@@ -65,55 +65,70 @@ end
 
 function BeatAnimator:registerBtn(btn,type)
    table.insert(self.buttons,{btn=btn,type=type,pos=btn.button.x})
+   btn.button.alpha=0.5
 end
 
 function BeatAnimator:start()
 	print("----------------------- start ------------------------")
-   self.startTime=system.getTimer()
-   self.beatIdx=1
-   self:update()
+	self.startTime=system.getTimer()
+	self.beatIdx=1
+	self.eventIdx=1
+
+	self.eventList={}
+	for idx,beat in ipairs(self.beatData) do
+		table.insert(self.eventList,{time=beat.time-200,animType="fadein",beatType=beat.type,finalTime=beat.time})
+		table.insert(self.eventList,{time=beat.time,animType="fadeout",beatType=beat.type,finalTime=beat.time+400})
+		table.insert(self.eventList,{time=beat.time-1000,animType="makeball",beatType=beat.type,finalTime=beat.time})
+	end
+	table.sort(self.eventList,function(a,b) return a.time<b.time end)
+
+	local updateClosure=function() self:update() end
+	Runtime:addEventListener( "enterFrame", updateClosure )
+	self:update()
 end
 
 function BeatAnimator:update()
-	--log("update "..self.beatIdx.." out of "..#self.beatData)
-	if self.beatIdx>#self.beatData then return end
-
 	local curTime=system.getTimer()-self.startTime
-	local fadeInTime=200
-	local fadeOutTime=400
-	local animOutTime, animInTime
 
-	local curBeat,nextBeatTimeDiff
-	local curBtn
+	while self.beatIdx<=#self.beatData and curTime>self.beatData[self.beatIdx].time do
+		self.beatIdx=self.beatIdx+1
+	end
+
+	local curbtn
+	while self.eventIdx<=#self.eventList and curTime>self.eventList[self.eventIdx].time do
+		event=self.eventList[self.eventIdx]
+		if event.animType=="makeball" then
+			for i,btn in ipairs(self.buttons) do
+				if btn.type==event.beatType then
+					curbtn=btn.btn.button
+					--local ball=display.newCircle(curbtn.x,curbtn.y,6)
+					--ball:setFillColor(255,0,0)
+					--transition.to(ball,{x=curbtn.x+20,radius=100,time=event.finalTime-curTime,onComplete=function(target) self:removeBall(target) end})
+				end
+			end
 
 
-	while self.beatIdx<=#self.beatData do
-		curBeat=self.beatData[self.beatIdx]
-		nextBeatTimeDiff=curBeat.time-fadeInTime-curTime
-		if nextBeatTimeDiff>30 then
-			--run this function again after a delay
-			local updateClosure=function() self:update() end
-			timer.performWithDelay(nextBeatTimeDiff,updateClosure,1)
-			break
-		end
-
-		for i,btn in ipairs(self.buttons) do
-			if btn.type==curBeat.type then
-				curBtn=btn.btn.button
-				if curTime>curBeat.time then
-					curBtn.x=btn.pos+20
-					animOutTime=curBeat.time+fadeOutTime-curTime
-					transition.to(btn.btn.button,{time=animOutTime,x=btn.pos})
-				else
-					animInTime=curBeat.time-curTime
-					animOutTime=fadeOutTime
-					transition.to(btn.btn.button,{time=animInTime,x=btn.pos+20,transition=easing.inQuad})
-					transition.to(btn.btn.button,{delay=animInTime,time=animOutTime,x=btn.pos,transition=easing.outQuad})
+		elseif event.animType=="fadein" then
+			for i,btn in ipairs(self.buttons) do
+				if btn.type==event.beatType then
+					transition.to(btn.btn.button,{alpha=1.0,time=event.finalTime-curTime})
+				end
+			end
+		elseif event.animType=="fadeout" then
+			for i,btn in ipairs(self.buttons) do
+				if btn.type==event.beatType then
+					transition.to(btn.btn.button,{alpha=0.5,time=event.finalTime-curTime})
 				end
 			end
 		end
-		self.beatIdx=self.beatIdx+1
+		self.eventIdx=self.eventIdx+1
 	end
+end
+
+
+function BeatAnimator:removeBall(target)
+	print "---- remove -----"
+	display.remove(target)
 end
 
 
