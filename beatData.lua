@@ -98,16 +98,12 @@ function BeatAnimator:update()
 	while self.eventIdx<=#self.eventList and curTime>self.eventList[self.eventIdx].time do
 		event=self.eventList[self.eventIdx]
 		if event.animType=="makeball" then
-			for i,btn in ipairs(self.buttons) do
-				if btn.type==event.beatType then
-					curbtn=btn.btn.button
-					--local ball=display.newCircle(curbtn.x,curbtn.y,6)
-					--ball:setFillColor(255,0,0)
-					--transition.to(ball,{x=curbtn.x+20,radius=100,time=event.finalTime-curTime,onComplete=function(target) self:removeBall(target) end})
-				end
-			end
-
-
+			local targetX
+			if event.beatType==BEATTYPE_LOW then targetX=-1
+			else targetX=1 end
+			--local ball=display.newCircle(450+targetX*400,500,6)
+			local ball=display.newImage("images/ball.png",450+targetX*400,500)
+			transition.to(ball,{x=450+targetX*80,y=120,time=event.finalTime-curTime,onComplete=function(target) self:removeBall(target) end})
 		elseif event.animType=="fadein" then
 			for i,btn in ipairs(self.buttons) do
 				if btn.type==event.beatType then
